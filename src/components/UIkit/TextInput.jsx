@@ -1,6 +1,5 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField';
-import { getThemeProps } from '@material-ui/styles';
 
 const TextInput = (props) => {
   return(
