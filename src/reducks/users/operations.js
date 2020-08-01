@@ -18,8 +18,6 @@ export const listenAuthState = () => {
               uid: uid,
               username: data.username
             }))
-
-            dispatch(push('/'))
           })
 
       } else {
