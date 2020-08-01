@@ -12,8 +12,7 @@ const Auth = ({children}) => {
     if (!isSignedIn) {
       dispatch(listenAuthState())
     }
-  }, []);
-  console.log("Auth: ", isSignedIn)
+  }, [dispatch]);
   if (!isSignedIn) {
     return <></>
   } else {

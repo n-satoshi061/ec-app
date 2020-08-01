@@ -1,5 +1,5 @@
 import React from 'react';
-import { getThemeProps } from '@material-ui/styles';
+// import { getThemeProps } from '@material-ui/styles';
 
 const ImagePreview = (props) => {
   return(
