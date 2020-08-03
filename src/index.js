@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import createStore from './reducks/store/store';
 import App from './App.jsx';
+import {MuiThemeProvider} from '@material-ui/core/styles';
+import {theme} from "./assets/theme";
 import * as serviceWorker from './serviceWorker';
 import {ConnectedRouter} from 'connected-react-router';
 import * as History from "history";
@@ -13,7 +15,9 @@ export const store = createStore(history);
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App />
+      <MuiThemeProvider theme={theme}>
+        <App />
+      </MuiThemeProvider>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
