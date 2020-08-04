@@ -6,7 +6,7 @@ export const productsReducer = (state = initialState.products, action) => {
     case Actions.DELETE_PRODUCTS:
       return {
         ...state,
-        list: [...action.payload]
+        list: action.payload
       };
     case Actions.FETCH_PRODUCTS:
       return {
