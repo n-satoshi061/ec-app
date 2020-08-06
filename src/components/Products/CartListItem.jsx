@@ -31,6 +31,7 @@ const CartListItem = (props) => {
   const selector = useSelector((state) => state);
   const uid = getUserId(selector);
   const name = props.product.name;
+  console.log(name)
   const image = props.product.images[0].path;
   const price = props.product.price.toLocaleString();
   const size = props.product.size;

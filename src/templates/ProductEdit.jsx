@@ -5,6 +5,7 @@ import {saveProduct} from '../reducks/products/operations'
 import ImageArea from '../components/Products/ImageArea'
 import { db } from '../firebase';
 import {SetSizesArea} from '../components/Products/index'
+import { listenAuthState } from '../reducks/users/operations';
 
 const ProductEdit = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const ProductEdit = () => {
         [description, setDescription] = useState(""),
         [price, setPrice] = useState(""),
         [images, setImages] = useState(""),
+        [categories, setCategories] = useState([]),
         [category, setCategory] = useState(""),
         [gender, setGender] = useState(""),
         [sizes, setSizes] = useState("");
@@ -39,17 +41,29 @@ const ProductEdit = () => {
   //   setSizes(event.target.value)
   // }, [setSizes]);
 
-  const categories = [
-    {id: "tops", name: "トップス"},
-    {id: "shirts", name: "シャツ"},
-    {id: "pants", name: "パンツ"},
-  ]
   const genders = [
     {id: "all", name: "すべて"},
     {id: "male", name: "メンズ"},
     {id: "female", name: "レディース"},
     
   ]
+
+  useEffect(() => {
+    db.collection('categories')
+      .orderBy('order', 'asc')
+      .get()
+      .then(snapshots => {
+        const list = [];
+        snapshots.forEach(snapshot => {
+          const data = snapshot.data()
+          list.push({
+            id: data.id,
+            name: data.name
+          })
+        })
+        setCategories(list)
+      })
+  }, []);
 
   useEffect(() => {
     if (id !== "") {
