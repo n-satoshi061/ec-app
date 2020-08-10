@@ -54,7 +54,6 @@ const SizeTable = (props) => {
                 <IconButton 
                   onClick={() => {
                     props.toggleLike(item.size)
-                    dispatch(fetchFavorited())
                   }}
                 >
                   {props.isFavorited ? (

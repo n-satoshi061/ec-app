@@ -5,13 +5,7 @@ export const fetchOrdersHistoryAction = (orders) => {
         payload: orders
     }
 }
-export const FETCH_FAVORITED = "FETCH_FAVORITED";
-export const fetchFavoritedAction = (products) => {
-    return {
-        type: "FETCH_FAVORITED",
-        payload: products
-    }
-}
+
 
 export const FETCH_PRODUCTS_IN_CART = "FETCH_PRODUCTS_IN_CART";
 export const fetchProductsInCartAction = (products) => {

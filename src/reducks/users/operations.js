@@ -40,25 +40,6 @@ export const fetchOrdersHistory = () => {
       })
   }
 }
-export const fetchFavorited = () => {
-  return async (dispatch, getState) => {
-    const uid = getState().users.uid;
-    let list = [];  // letに変更
-    db.collection('users').doc(uid).collection('like')
-      .onSnapshot(snapshots => {
-        snapshots.docChanges().forEach(change => {
-          const product = change.doc.data();
-          const changeType = change.type
-          if (changeType === "added") {
-            list.push(product)
-          } else {
-            list = list.filter(product => product.likeId !== change.doc.id)
-          }
-        })
-        dispatch(fetchFavoritedAction(list))
-      })
-  }
-}
 
 export const fetchProductsInCart = (products) => {
   return async (dispatch) => {
