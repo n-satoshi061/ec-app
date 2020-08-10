@@ -6,19 +6,26 @@ import TableBody from "@material-ui/core/TableBody";
 import IconButton from "@material-ui/core/IconButton";
 import TableContainer from "@material-ui/core/TableContainer";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import {makeStyles} from "@material-ui/styles";
+import {useDispatch} from 'react-redux'
+import {fetchFavorited} from '../../reducks/users/operations'
 
 const useStyles = makeStyles({
   iconCell: {
     padding: 0,
     height: 48,
     width: 48
-  }
+  },
+  redIcon: {
+    color: 'red'
+  },
 })
 
 const SizeTable = (props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const sizes = props.sizes;
   return(
@@ -44,9 +51,18 @@ const SizeTable = (props) => {
                   )}
                 </TableCell>
                 <TableCell className={classes.iconCell}>
-                  <IconButton className={classes.iconCell}>
-                      <FavoriteBorderIcon />
-                  </IconButton>
+                <IconButton 
+                  onClick={() => {
+                    props.toggleLike(item.size)
+                    dispatch(fetchFavorited())
+                  }}
+                >
+                  {props.isFavorited ? (
+                    <FavoriteIcon className={classes.redIcon} />
+                  ) : (
+                    <FavoriteBorderIcon />
+                  )}
+                </IconButton>
                 </TableCell>
               </TableRow>
             ))

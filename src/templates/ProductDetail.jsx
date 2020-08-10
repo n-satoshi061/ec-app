@@ -4,7 +4,8 @@ import {db, firebaseTimestamp} from '../firebase/index';
 import {makeStyles} from '@material-ui/styles';
 import HTMLReactParser from 'html-react-parser';
 import {ImageSwiper, SizeTable} from '../components/Products/index'
-import {addProductToCart} from '../reducks/users/operations'
+import {addProductToCart, addProductToLike, fetchFavorited} from '../reducks/users/operations'
+import {getUserId} from '../reducks/users/selectors';
 
 const useStyles = makeStyles((theme) => ({
   sliderBox: {
@@ -49,10 +50,12 @@ const ProductDetail = () => {
   const classes = useStyles();
   const selector = useSelector((state) => state);
   const dispatch = useDispatch();
+  const uid = getUserId(selector);
   const path = selector.router.location.pathname;
   const id = path.split('/product/')[1];
 
   const [product, setProduct] = useState(null);
+  const [isFavorited, setIsFavorited] = useState(false)
 
   useEffect(() => {
     db.collection('products').doc(id).get()
@@ -77,6 +80,32 @@ const ProductDetail = () => {
     }))
   }, [product])
 
+  const toggleLike = useCallback((selectedSize) => {
+    setIsFavorited((isFavorited) => !isFavorited)
+    console.log(isFavorited)
+    if(!isFavorited) {
+      const timestamp = firebaseTimestamp.now();
+      dispatch(addProductToLike({
+        added_at: timestamp,
+        description: product.description,
+        gender: product.gender,
+        images: product.images,
+        name: product.name,
+        price: product.price,
+        productId: product.id,
+        quantity: 1,
+        size: selectedSize
+      }))
+    } else {
+      return db.collection('users').doc(uid)
+        .collection('like').doc(id)
+        .delete()
+    }
+      // お気に入りされていたら、♡マークの色を消してDBから削除する処理
+  }, [product])
+
+
+
   return(
     <section className="c-section-wrapin">
       {product && (
@@ -88,7 +117,7 @@ const ProductDetail = () => {
             <h2 className="u-text__headline">{product.name}</h2>
             <p className={classes.price}>{product.price.toLocaleString()}</p>
             <div className="module-spacer--small" />
-            <SizeTable addProduct={addProduct} sizes={product.sizes} />
+            <SizeTable addProduct={addProduct} toggleLike={toggleLike} isFavorited={isFavorited} sizes={product.sizes} />
             <div className="module-spacer--small" />
             <p>{returnCodeToBr(product.description)}</p>
           </div>

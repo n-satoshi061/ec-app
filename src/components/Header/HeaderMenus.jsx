@@ -4,10 +4,10 @@ import Badge from '@material-ui/core/Badge';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MenuIcon from '@material-ui/icons/Menu';
-import {getProductsInCart, getUserId} from '../../reducks/users/selectors';
+import {getProductsInCart, getProductsInLike, getUserId} from '../../reducks/users/selectors';
 import {useSelector, useDispatch} from 'react-redux';
 import {db} from '../../firebase/index';
-import {fetchProductsInCart} from "../../reducks/users/operations";
+import {fetchProductsInCart, fetchProductsInLike} from "../../reducks/users/operations";
 import {push} from 'connected-react-router';
 
 const HeaderMenus = (props) => {
@@ -15,6 +15,7 @@ const HeaderMenus = (props) => {
   const dispatch = useDispatch();
   const userId = getUserId(selector);
   let productsInCart = getProductsInCart(selector);
+  let productsInLike = getProductsInLike(selector);
 
   useEffect(() => {
     const unsubscribe = db.collection('users').doc(userId).collection('cart')
@@ -22,7 +23,6 @@ const HeaderMenus = (props) => {
         snapshots.docChanges().forEach(change => {
           const product = change.doc.data();
           const changeType = change.type
-
           switch (changeType) {
             case 'added':
               productsInCart.push(product);
@@ -43,6 +43,33 @@ const HeaderMenus = (props) => {
       return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    const unsubscribe = db.collection('users').doc(userId).collection('like')
+      .onSnapshot(snapshots => {
+        snapshots.docChanges().forEach(change => {
+          const product = change.doc.data();
+          const changeType = change.type
+
+          switch (changeType) {
+            case 'added':
+              productsInLike.push(product);
+              break;
+            case 'modified':
+              const index = productsInLike.findIndex(product => product.likeId === change.doc.id)
+              productsInLike[index] = product;
+              break;
+            case 'removed':
+              productsInLike = productsInLike.filter(product => product.likeId !== change.doc.id)
+              break;
+            default:
+              break;
+          }
+        })
+        dispatch(fetchProductsInLike(productsInLike))
+      })
+      return () => unsubscribe();
+  }, []);
+
 
   return(
     <>
@@ -51,8 +78,10 @@ const HeaderMenus = (props) => {
         <ShoppingCartIcon />
         </Badge>
       </IconButton>
-      <IconButton>
-        <FavoriteBorderIcon />
+      <IconButton onClick={() => dispatch(push('/like'))}>
+        <Badge badgeContent={productsInLike.length} color="secondary">
+          <FavoriteBorderIcon />
+        </Badge>
       </IconButton>
       <IconButton onClick={(event) => props.handleDrawerToggle(event)}>
         <MenuIcon />

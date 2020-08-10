@@ -8,10 +8,20 @@ export const usersReducer = (state = initialState.users, action) => {
           ...state,
           orders: [...action.payload]
       };
+    case Actions.FETCH_FAVORITED:
+      return {
+          ...state,
+          orders: [...action.payload]
+      };
     case Actions.FETCH_PRODUCTS_IN_CART:
       return {
           ...state,
           cart: [...action.payload]
+      };
+    case Actions.FETCH_PRODUCTS_IN_LIKE:
+      return {
+          ...state,
+          like: [...action.payload]
       };
     case Actions.SIGN_IN:
       return {

@@ -6,6 +6,10 @@ export const getProductsInCart = createSelector(
   [usersSelector],
   state => state.cart
 )
+export const getProductsInLike = createSelector(
+  [usersSelector],
+  state => state.like
+)
 
 export const getOrdersHistory = createSelector(
   [usersSelector],

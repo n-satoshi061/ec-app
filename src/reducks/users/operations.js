@@ -1,8 +1,9 @@
-import {fetchOrdersHistoryAction, fetchProductsInCartAction, signInAction, signOutAction} from './actions';
+import {fetchOrdersHistoryAction, fetchProductsInCartAction, fetchProductsInLikeAction, signInAction, signOutAction, fetchFavoritedAction} from './actions';
 import {push} from 'connected-react-router';
 import { auth, db, firebaseTimestamp } from '../../firebase/index';
 
 const usersRef = db.collection('users')
+
 
 export const addProductToCart = (addedProduct) => {
     return async (dispatch, getState) => {
@@ -10,7 +11,14 @@ export const addProductToCart = (addedProduct) => {
         const cartRef = usersRef.doc(uid).collection('cart').doc();
         addedProduct['cartId'] = cartRef.id;
         await cartRef.set(addedProduct);
-        dispatch(push('/cart'))
+    }
+}
+export const addProductToLike = (addedProduct) => {
+    return async (dispatch, getState) => {
+        const uid = getState().users.uid;
+        const likeRef = usersRef.doc(uid).collection('like').doc();
+        addedProduct['likeId'] = likeRef.id;
+        await likeRef.set(addedProduct);
     }
 }
 
@@ -32,10 +40,34 @@ export const fetchOrdersHistory = () => {
       })
   }
 }
+export const fetchFavorited = () => {
+  return async (dispatch, getState) => {
+    const uid = getState().users.uid;
+    let list = [];  // letに変更
+    db.collection('users').doc(uid).collection('like')
+      .onSnapshot(snapshots => {
+        snapshots.docChanges().forEach(change => {
+          const product = change.doc.data();
+          const changeType = change.type
+          if (changeType === "added") {
+            list.push(product)
+          } else {
+            list = list.filter(product => product.likeId !== change.doc.id)
+          }
+        })
+        dispatch(fetchFavoritedAction(list))
+      })
+  }
+}
 
 export const fetchProductsInCart = (products) => {
   return async (dispatch) => {
       dispatch(fetchProductsInCartAction(products))
+  }
+}
+export const fetchProductsInLike = (products) => {
+  return async (dispatch) => {
+      dispatch(fetchProductsInLikeAction(products))
   }
 }
 
