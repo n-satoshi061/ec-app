@@ -80,10 +80,11 @@ const ProductDetail = () => {
     }))
   }, [product])
 
-  const toggleLike = useCallback((selectedSize) => {
-    setIsFavorited((isFavorited) => !isFavorited)
+  const toggleLike =  useCallback((selectedSize) => {
     console.log(isFavorited)
+    // 現在がお気に入りされていない状態なら追加
     if(!isFavorited) {
+      setIsFavorited((isFavorited) => !isFavorited)
       const timestamp = firebaseTimestamp.now();
       dispatch(addProductToLike({
         added_at: timestamp,
@@ -96,13 +97,14 @@ const ProductDetail = () => {
         quantity: 1,
         size: selectedSize
       }))
+      // 現在がお気に入りされている状態なら削除
     } else {
+      setIsFavorited((isFavorited) => !isFavorited)
       return db.collection('users').doc(uid)
-        .collection('like').doc(id)
-        .delete()
+              .collection('like').doc(id)
+              .delete()
     }
-      // お気に入りされていたら、♡マークの色を消してDBから削除する処理
-  }, [product])
+  }, [product, isFavorited])
 
 
 
@@ -117,7 +119,7 @@ const ProductDetail = () => {
             <h2 className="u-text__headline">{product.name}</h2>
             <p className={classes.price}>{product.price.toLocaleString()}</p>
             <div className="module-spacer--small" />
-            <SizeTable addProduct={addProduct} toggleLike={toggleLike} isFavorited={isFavorited} sizes={product.sizes} />
+            <SizeTable addProduct={addProduct} toggleLike={toggleLike} isFavorited={isFavorited} product={product} sizes={product.sizes} />
             <div className="module-spacer--small" />
             <p>{returnCodeToBr(product.description)}</p>
           </div>

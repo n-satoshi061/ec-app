@@ -44,31 +44,28 @@ const HeaderMenus = (props) => {
   }, []);
 
   useEffect(() => {
-    let list = [];
     const unsubscribe = db.collection('users').doc(userId).collection('like')
       .onSnapshot(snapshots => {
         snapshots.docChanges().forEach(change => {
           const product = change.doc.data();
-          const id = change.doc.id
           const changeType = change.type
-          console.log(changeType)
 
           switch (changeType) {
             case 'added':
-              list.push(product);
+              productsInLike.push(product);
               break;
             case 'modified':
-              const index = list.findIndex(product => product.id === id)
-              list[index] = product;
+              const index = productsInLike.findIndex(product => product.likeId === change.doc.id)
+              productsInLike[index] = product;
               break;
             case 'removed':
-              list = list.filter(product => product.likeId !== id)
+              productsInLike = productsInLike.filter(product => product.likeId !== change.doc.id)
               break;
             default:
               break;
           }
         })
-        dispatch(fetchProductsInLike(list))
+        dispatch(fetchProductsInLike(productsInLike))
       })
       return () => unsubscribe();
   }, []);
