@@ -115,7 +115,7 @@ const ProductDetail = () => {
           </div>
           <div className={classes.detail}>
             <h2 className="u-text__headline">{product.name}</h2>
-            <p className={classes.price}>{product.price.toLocaleString()}</p>
+            <p className={classes.price}>{product.price.toLocaleString()}円</p>
             <div className="module-spacer--small" />
             <SizeTable addProduct={addProduct} toggleLike={toggleLike} isFavorited={isFavorited} product={product} sizes={product.sizes} />
             <div className="module-spacer--small" />
