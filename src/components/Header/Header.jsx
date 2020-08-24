@@ -61,11 +61,14 @@ const Header = () => {
           >
             Yasa!!!<span className={classes.headerLogoNext}>ショッピング</span>
           </h1>
-          {isSignedIn && (
-            <div className={classes.iconButtons}>
-              <HeaderMenus handleDrawerToggle={handleDrawerToggle} />
-            </div>
-          )}
+          {isSignedIn 
+            ? <div className={classes.iconButtons}>
+                <HeaderMenus handleDrawerToggle={handleDrawerToggle} />
+              </div>
+            : <div className={classes.iconButtons}>
+                <button onClick={() => dispatch(push('/signin'))}>ログインする</button>
+              </div>
+          }
         </ToolBar>
       </AppBar>
       <ClosableDrawer open={open} onClose={handleDrawerToggle} />
