@@ -70,7 +70,6 @@ const ProductDetail = () => {
     dispatch(addProductToCart({
       added_at: timestamp,
       description: product.description,
-      gender: product.gender,
       images: product.images,
       name: product.name,
       price: product.price,
@@ -89,7 +88,6 @@ const ProductDetail = () => {
       dispatch(addProductToLike({
         added_at: timestamp,
         description: product.description,
-        gender: product.gender,
         images: product.images,
         name: product.name,
         price: product.price,

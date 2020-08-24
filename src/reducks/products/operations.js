@@ -16,10 +16,9 @@ export const deleteProduct = (id) => {
 }
 
 
-export const fetchProducts = (gender, category) => {
+export const fetchProducts = (category) => {
   return async (dispatch) => {
       let query = productsRef.orderBy('updated_at', 'desc');
-      query = (gender !== "") ? query.where('gender', '==', gender) : query;
       query = (category !== "") ? query.where('category', '==', category) : query;
 
       query.get()
@@ -112,14 +111,14 @@ export const orderProduct = (productsInCart, amount) => {
   }
 }
 
-export const saveProduct = (id, name, description, category, gender, price, images,sizes) => {
+export const saveProduct = (id, name, description, category, price, images,sizes) => {
   return async (dispatch) => {
     const timestamp = firebaseTimestamp.now()
 
     const data = {
       category: category,
       description: description,
-      gender: gender,
+      // gender: gender,
       images: images,
       name: name,
       price: parseInt(price, 10),

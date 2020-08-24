@@ -11,11 +11,10 @@ const ProductList = () => {
   const products = getProducts(selector);
 
   const query = selector.router.location.search;
-  const gender = /^\?gender=/.test(query) ? query.split('?gender=')[1] : "";
   const category = /^\?category=/.test(query) ? query.split('?category=')[1] : "";
 
   useEffect(() => {
-    dispatch(fetchProducts(gender, category))
+    dispatch(fetchProducts(category))
   }, [query]);
 
   return(

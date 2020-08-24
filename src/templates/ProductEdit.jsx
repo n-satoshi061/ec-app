@@ -21,7 +21,6 @@ const ProductEdit = () => {
         [images, setImages] = useState(""),
         [categories, setCategories] = useState([]),
         [category, setCategory] = useState(""),
-        [gender, setGender] = useState(""),
         [sizes, setSizes] = useState("");
         
 
@@ -37,16 +36,7 @@ const ProductEdit = () => {
     setPrice(event.target.value)
   }, [setPrice]);
 
-  // const inputSize = useCallback((event) => {
-  //   setSizes(event.target.value)
-  // }, [setSizes]);
 
-  const genders = [
-    {id: "all", name: "すべて"},
-    {id: "male", name: "メンズ"},
-    {id: "female", name: "レディース"},
-    
-  ]
 
   useEffect(() => {
     db.collection('categories')
@@ -74,7 +64,6 @@ const ProductEdit = () => {
           setName(data.name);
           setDescription(data.description);
           setCategory(data.category);
-          setGender(data.gender);
           setPrice(data.price);
           setSizes(data.sizes);
         })
@@ -98,10 +87,7 @@ const ProductEdit = () => {
           label={"カテゴリー"} required={true} options={categories}
           select={setCategory} value={category}
         />
-        <SelectBox
-          label={"性別"} required={true} options={genders}
-          select={setGender} value={gender}
-        />
+
         <TextInput
           fullWidth={true} label={"価格"} multiline={false} required={true}
           onChange={inputPrice} rows={1} value={price} type={"number"}
@@ -112,7 +98,7 @@ const ProductEdit = () => {
         <div className="center">
           <PrimaryButton
             label={"商品情報を保存"}
-            onClick={() => dispatch(saveProduct(id, name, description, category, gender, price, images, sizes))}
+            onClick={() => dispatch(saveProduct(id, name, description, category, price, images, sizes))}
           />
         </div>
       </div>
