@@ -9,7 +9,6 @@ const ProductList = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const products = getProducts(selector);
-
   const query = selector.router.location.search;
   const category = /^\?category=/.test(query) ? query.split('?category=')[1] : "";
 

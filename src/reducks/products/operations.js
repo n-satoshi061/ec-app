@@ -20,7 +20,6 @@ export const fetchProducts = (category) => {
   return async (dispatch) => {
       let query = productsRef.orderBy('updated_at', 'desc');
       query = (category !== "") ? query.where('category', '==', category) : query;
-
       query.get()
           .then(snapshots => {
           const productList = []
@@ -118,7 +117,6 @@ export const saveProduct = (id, name, description, category, price, images,sizes
     const data = {
       category: category,
       description: description,
-      // gender: gender,
       images: images,
       name: name,
       price: parseInt(price, 10),
