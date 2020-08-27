@@ -66,7 +66,7 @@ const Header = () => {
                 <HeaderMenus handleDrawerToggle={handleDrawerToggle} />
               </div>
             : <div className={classes.iconButtons}>
-                <button onClick={() => dispatch(push('/signin'))}>ログインする</button>
+                <button onClick={() => dispatch(push('/signin'))}>ログインページへ</button>
               </div>
           }
         </ToolBar>
