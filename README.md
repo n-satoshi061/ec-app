@@ -5,10 +5,12 @@
 野菜を中心に取り扱うECアプリです。  
 ECサイトでの販売をすることで両親がつくった野菜を全国の方に届けたいという思いで作りました。
 
-*URL*
+URL
+
 <https://ec-app-f17ae.web.app/>
 
-*テストアカウント*
+テストアカウント
+
 メールアドレス: buyer@gmail.com  
 パスワード: buyer000
 
@@ -24,7 +26,8 @@ ECサイトでの販売をすることで両親がつくった野菜を全国の
 ・注文履歴  
 
 ## 使用技術
-*フロントエンド*
+フロントエンド
+
 ・HTML  
 ・CSS  
 ・JavaScript  
@@ -35,14 +38,16 @@ ECサイトでの販売をすることで両親がつくった野菜を全国の
 ・React-swiper  
 ・Material-UI  
 
-*インフラ・サーバーサイド・データベース*
+インフラ・サーバーサイド・データベース
+
 ・Firebase  
 ・Cloud Functions  
 ・Firebasse Auth  
 ・Cloud Storage  
 ・Firestore  
 
-*開発環境*
+開発環境
+
 ・npm  
 ・create-react-app  
 
