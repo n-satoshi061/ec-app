@@ -43,6 +43,8 @@ const Header = () => {
 
   const [open, setOpen] = useState(false);
 
+  // Drawerメニュー開閉の関数
+  // openの論理値を反転させるhandleDrawerToggle()を定義します。event.type === "keydown" && ...は、「TabキーとShiftキーをクリックした時はDrawerメニューを閉じない」ことを制御する条件文です。
   const handleDrawerToggle = useCallback((event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.type === 'Shift')) {
       return;
@@ -52,6 +54,7 @@ const Header = () => {
 
 
   return(
+    // <AppBar>の中に <Toolbar>を記述することで、ヘッダーを実装できます。
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.menuBar}>
         <ToolBar className={classes.toolBar}>
@@ -60,9 +63,11 @@ const Header = () => {
             onClick={() => dispatch(push('/'))}
           >
             Yasa!!!<span className={classes.headerLogoNext}>ショッピング</span>
+            {/* メニューアイコンを表示する<HeaderMenus>要素はログイン状態でのみ表示させたいので、条件分岐 */}
           </h1>
           {isSignedIn 
             ? <div className={classes.iconButtons}>
+              {/* <HeaderMenus/>へhandleDrawerToggle()を渡します。<HeaderMenus/>をクリックしたときにこの関数が動作する(Drawerメニューが開く)よう実装します。 */}
                 <HeaderMenus handleDrawerToggle={handleDrawerToggle} />
               </div>
             : <div className={classes.iconButtons}>
@@ -71,6 +76,7 @@ const Header = () => {
           }
         </ToolBar>
       </AppBar>
+      {/* これから実装する<ClosableDrawer/>へ、openとhandleDrawerToggleを渡します。これにより、Drawerメニューの開閉自体を制御します。 */}
       <ClosableDrawer open={open} onClose={handleDrawerToggle} />
     </div>
   );

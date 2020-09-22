@@ -13,6 +13,7 @@ const useStyles = makeStyles({
   }
 })
 
+// ボタンのUIコンポーネント。SignUp画面では、アカウント登録のボタンとして使う
 const PrimaryButton = (props) => {
   const classes = useStyles();
   return(

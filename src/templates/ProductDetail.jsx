@@ -8,6 +8,7 @@ import {addProductToCart, addProductToLike, fetchFavorited} from '../reducks/use
 import {getUserId} from '../reducks/users/selectors';
 
 const useStyles = makeStyles((theme) => ({
+  // smサイズの幅をブレイクポイントとして、適用するスタイルを変更しています。
   sliderBox: {
     [theme.breakpoints.down('sm')]: {
       margin: '0 auto 24px auto',
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+// 改行コード\nを、改行のHTMLタグ<br />に変換しています。この関数に用いているhtml-react-parserは、この時点ではインストールしていないはずなので、npm からインストールします。
 const returnCodeToBr = (text) => {
   if (text === "") {
     return text
@@ -57,6 +59,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [isFavorited, setIsFavorited] = useState(false)
 
+  // 初期レンダー時に、DBから該当するidの情報を取得します。
   useEffect(() => {
     db.collection('products').doc(id).get()
       .then(doc => {
@@ -65,8 +68,10 @@ const ProductDetail = () => {
       })
   }, []);
 
+  // productsコレクションから該当する商品情報を取り出してcartサブコレクションへ保存するための配列として整形する、addProduct()関数を定義します。
   const addProduct = useCallback((selectedSize) => {
     const timestamp = firebaseTimestamp.now();
+    // ここで作られたcart用の配列は、5.src/reducks/users/operations.js内で定義するaddProductToCart()に渡り、Cloud Firestoreへ送信され、cartサブコレクションに保存されます。
     dispatch(addProductToCart({
       added_at: timestamp,
       description: product.description,

@@ -1,3 +1,4 @@
+// Firebase設定用ファイル
 export const firebaseConfig = {
   apiKey: "AIzaSyBFFks5c_hy9bLjir3_jAegeOYNqgt-API",
   authDomain: "ec-app-f17ae.firebaseapp.com",

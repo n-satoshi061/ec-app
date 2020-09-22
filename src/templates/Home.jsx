@@ -14,6 +14,7 @@ const Home = () => {
       <h2>ホーム</h2>
       <p>ユーザーID:{uid}</p>
       <p>ユーザー名:{username}</p>
+      {/* signOut関数の実行 */}
       <button onClick={() => dispatch(signOut())}>サインアウト</button>
     </div>
 

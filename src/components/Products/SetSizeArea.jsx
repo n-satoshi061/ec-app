@@ -12,7 +12,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {makeStyles} from "@material-ui/styles";
-// import { Tab } from '@material-ui/core';
 
 const useStyles = makeStyles( {
   checkIcon: {
@@ -24,6 +23,7 @@ const useStyles = makeStyles( {
   }
 });
 
+// サイズ・数量を入力するフォーム
 const SetSizesArea = (props) => {
   const classes = useStyles();
 
@@ -39,6 +39,7 @@ const SetSizesArea = (props) => {
     setQuantity(event.target.value)
   }, [setQuantity]);
 
+  // addSize では、props.setSizeを用いて、size と quantity をprops.sizesに追加します。この操作により、index が +1 されます。
   const addSize = (index, size, quantity) => {
     if (size === "" || quantity === "") {
       return false
@@ -58,11 +59,15 @@ const SetSizesArea = (props) => {
       }
     }
   }
+
+  // editSize　では、該当する index のprops.sizesの値を、入力フォームの値をもとに更新します。この関数は、index の値は変わりません。
   const editSize = (index, size, quantity) => {
     setIndex(index)
     setSize(size)
     setQuantity(quantity)
   }
+
+  // deleteSize では、該当する index のprops.sizesを削除します。index の値は -1 されます。
   const deleteSize = (deleteIndex) => {
     const newSizes = props.sizes.filter((item, i) => i !== deleteIndex);
     props.setSizes(newSizes)

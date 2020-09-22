@@ -3,6 +3,7 @@ import {Switch, Route} from 'react-router';
 import {SignUp, SignIn, Reset, ProductEdit, ProductList, ProductDetail, CartList, OrderConfirm, OrderHistory, LikeList} from './templates'
 import Auth from './Auth'
 
+// ルーティングの設定
 const Router = () => {
   return(
     <Switch>
@@ -10,9 +11,11 @@ const Router = () => {
       <Route exact path={"/signin"} component={SignIn} />
       <Route exact path={"/signin/reset"} component={Reset} />
 
+{/* 認証のリッスンが必要なためAuthコンポーネントでラッピング */}
       <Auth>
         <Route exact path={"(/)?"} component={ProductList} />
         <Route exact path={"/product/:id"} component={ProductDetail} />
+        {/* exact path -> pathとすることで、ルーティングの条件が完全一致から部分一致に切り替わります。 */}
         <Route path={"/product/edit(/:id)?"} component={ProductEdit} />
         <Route exact path={"/cart"} component={CartList} />
         <Route exact path={"/like"} component={LikeList} />

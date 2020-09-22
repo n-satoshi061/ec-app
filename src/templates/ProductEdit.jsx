@@ -9,6 +9,7 @@ import { listenAuthState } from '../reducks/users/operations';
 
 const ProductEdit = () => {
   const dispatch = useDispatch();
+  // URL末尾の:idにあたる部分の文字列を抽出しています。これが Cloud Firestore の productsドキュメントの id に対応します。
   let id = window.location.pathname.split('/product/edit')[1];
 
   if (id !== "") {
@@ -37,7 +38,6 @@ const ProductEdit = () => {
   }, [setPrice]);
 
 
-
   useEffect(() => {
     db.collection('categories')
       .orderBy('order', 'asc')
@@ -55,6 +55,7 @@ const ProductEdit = () => {
       })
   }, []);
 
+    // このCloud Firestore からのデータの取得は、useEffect()を用いて実装しています。第2引数に[id]を入れることで、[id]が切り替わるタイミングでのみ、Cloud Firestore との通信が行われるようにしています。
   useEffect(() => {
     if (id !== "") {
       db.collection('products').doc(id).get()
@@ -98,6 +99,7 @@ const ProductEdit = () => {
         <div className="center">
           <PrimaryButton
             label={"商品情報を保存"}
+            // 商品情報を保存する関数saveProductをoperations.jsに送る
             onClick={() => dispatch(saveProduct(id, name, description, category, price, images, sizes))}
           />
         </div>

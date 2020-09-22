@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     width: "100%"
   }
 });
-
+// 「カテゴリー」「性別」については、いくつかの選択肢から入力値を決めるセレクトボックス形式の入力フォームとして実装すべきです。
 const SelectBox = (props) => {
   const classes = useStyles();
 

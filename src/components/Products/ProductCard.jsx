@@ -75,6 +75,7 @@ const ProductCard = (props) => {
             ¥{price}
           </Typography>
         </div>
+        {/* <IconButton />をクリックすることでhandleClick()が発火し、setAnchorEl()でanchirElに値がセットされることで、モーダルが開きます。 */}
         <IconButton onClick={handleClick}>
           <MOreVertIcon />
         </IconButton>
@@ -84,6 +85,7 @@ const ProductCard = (props) => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
+          {/* 「編集する」をクリックするとdispatch(deleteProduct(props.id))が発火し、該当するProductsの編集ページへ遷移します。 */}
           <MenuItem
             onClick={() => {
               dispatch(push('/product/edit/' + props.id))
@@ -92,6 +94,7 @@ const ProductCard = (props) => {
           >
             編集する
           </MenuItem>
+          {/* 「削除する」をクリックすると、dispatch(deleteProduct(props.id))が発火し、該当するProductsの削除処理が行われます */}
           <MenuItem
             onClick={() => {
               dispatch(deleteProduct(props.id));

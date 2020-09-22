@@ -4,11 +4,14 @@ import {signIn} from '../reducks/users/operations'
 import {useDispatch} from 'react-redux'
 import {push} from 'connected-react-router';
 
+// SignInコンポーネント
 const SignIn = () => {
   const dispatch = useDispatch()
+  // stateの定義。サインインに必要な情報はメールアドレスとパスワードのみ
   const [email, setEmail] = useState(""),
         [password, setPassword] = useState("")
 
+  // useCallbackで関数をpropsとして渡せるようにする
   const inputEmail = useCallback((event) => {
     setEmail(event.target.value)
   }, [setEmail]);
@@ -34,6 +37,7 @@ const SignIn = () => {
       <div className="center">
       <PrimaryButton
         label={"Sign In"}
+        // operations.jsのsignIn関数に飛ばす
         onClick={() => dispatch(signIn(email, password))}
       />
       <p onClick={() => dispatch(push('/signup'))}>アカウントをお持ちでない方はこちら</p>

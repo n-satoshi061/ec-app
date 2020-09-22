@@ -1,6 +1,7 @@
 import React from 'react';
 // import { getThemeProps } from '@material-ui/styles';
 
+// 画像プレビュー部分のみを担当するコンポーネント。imageArea.jsxに配置する。
 const ImagePreview = (props) => {
   return(
     <div className="p-media__thumb" onClick={() => props.delete(props.id)}>

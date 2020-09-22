@@ -15,6 +15,7 @@ export const store = createStore(history);
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
+    {/* <MuiThemeProvider>で<App />を丸ごとラッピングして、設定。 */}
       <MuiThemeProvider theme={theme}>
         <App />
       </MuiThemeProvider>

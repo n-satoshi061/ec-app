@@ -4,13 +4,17 @@ import {signUp} from '../reducks/users/operations'
 import {useDispatch} from 'react-redux'
 import {push} from 'connected-react-router'
 
+// SignUpコンポーネント
 const SignUp = () => {
+  // operations.jsに定義した関数をコンポーネントで利用するためのHooks
   const dispatch = useDispatch()
+  // stateの定義
   const [username, setUsername] = useState(""),
         [email, setEmail] = useState(""),
         [password, setPassword] = useState(""),
         [confirmPassword, setConfirmPassword] = useState("");
 
+  // useCallbackで永続化。変更した際の関数をpropsで渡せるようにする
   const inputUsername = useCallback((event) => {
     setUsername(event.target.value)
   }, [setUsername]);
@@ -59,3 +63,9 @@ const SignUp = () => {
   );
 };
 export default SignUp;
+// しかし今回のケースでは、「signUp()関数は user state に関わる処理のため
+//  reducks/users/operations.js 
+//  に記述をするが、アカウント登録に使用したユーザー情報は画面描画には使用せず、
+//  登録後はすぐにルートにリダイレクトさせるため state を更新する必要はない」
+//  という状況のため、3. actions.js, 4. reducers.jsについてはノータッチ
+//  になります（こういうケースは珍しい方かと思います）

@@ -8,10 +8,12 @@ import { getProducts } from '../reducks/products/selectors';
 const ProductList = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
+  // DBから取得した商品情報がproductsに格納されます。
   const products = getProducts(selector);
   const query = selector.router.location.search;
   const category = /^\?category=/.test(query) ? query.split('?category=')[1] : "";
 
+  // 初期レンダー時において、先ほどoperations.jsで定義したfetchProducts()を実行します
   useEffect(() => {
     dispatch(fetchProducts(category))
   }, [query]);

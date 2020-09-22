@@ -1,3 +1,4 @@
+// 設定変数を保存するファイル
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'

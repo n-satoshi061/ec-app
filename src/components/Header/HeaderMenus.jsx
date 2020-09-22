@@ -67,11 +67,12 @@ const HeaderMenus = (props) => {
         })
         dispatch(fetchProductsInLike(productsInLike))
       })
-      return () => unsubscribe();
+      return () => unsubscribe;
   }, []);
 
 
   return(
+    // <Badge>コンポーネントで Icon をラッピングすることで、Icon の右肩に数値を表示させることができます。現在は、badgeContent={3}としてダミーの数値を表示させていますが、最終的にはここに「カートに入れた商品数」が入ります。
     <>
       <IconButton onClick={() => dispatch(push('/cart'))}>
         <Badge badgeContent={productsInCart.length} color="secondary">

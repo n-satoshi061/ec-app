@@ -4,11 +4,13 @@ import {resetPassword} from '../reducks/users/operations'
 import {useDispatch} from 'react-redux'
 import {push} from 'connected-react-router';
 
-
+// パスワードリセット機能のコンポーネント
 const Reset = () => {
+  // stateの定義
   const dispatch = useDispatch()
   const [email, setEmail] = useState("")
 
+  // useCallbackで関数をpropsで渡す
   const inputEmail = useCallback((event) => {
     setEmail(event.target.value)
   }, [setEmail]);
@@ -26,6 +28,7 @@ const Reset = () => {
       <div className="center">
       <PrimaryButton
         label={"Reset Password"}
+        // resetPassword関数の実行
         onClick={() => dispatch(resetPassword(email))}
       />
       <p onClick={() => dispatch(push('/signup'))}>アカウントをお持ちでない方はこちら</p>
