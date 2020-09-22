@@ -4,7 +4,7 @@ import {db, firebaseTimestamp} from '../firebase/index';
 import {makeStyles} from '@material-ui/styles';
 import HTMLReactParser from 'html-react-parser';
 import {ImageSwiper, SizeTable} from '../components/Products/index'
-import {addProductToCart, addProductToLike, fetchFavorited} from '../reducks/users/operations'
+import {addProductToCart, addProductToLike} from '../reducks/users/operations'
 import {getUserId} from '../reducks/users/selectors';
 
 const useStyles = makeStyles((theme) => ({

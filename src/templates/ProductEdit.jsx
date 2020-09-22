@@ -5,7 +5,6 @@ import {saveProduct} from '../reducks/products/operations'
 import ImageArea from '../components/Products/ImageArea'
 import { db } from '../firebase';
 import {SetSizesArea} from '../components/Products/index'
-import { listenAuthState } from '../reducks/users/operations';
 
 const ProductEdit = () => {
   const dispatch = useDispatch();

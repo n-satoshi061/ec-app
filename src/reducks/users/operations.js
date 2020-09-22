@@ -2,7 +2,6 @@ import {fetchOrdersHistoryAction, fetchProductsInCartAction, fetchProductsInLike
 import {push} from 'connected-react-router';
 // src/firebase/indexedDB.jsで定数化したauth、db、FirebaseTimestampをインポート
 import { auth, db, firebaseTimestamp } from '../../firebase/index';
-import { firestore } from 'firebase';
 
 const usersRef = db.collection('users')
 
