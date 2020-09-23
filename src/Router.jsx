@@ -1,6 +1,10 @@
 import React from 'react'
 import {Switch, Route} from 'react-router';
-import {SignUp, SignIn, Reset, ProductEdit, ProductList, ProductDetail, CartList, OrderConfirm, OrderHistory, LikeList} from './templates'
+import {
+  SignUp, SignIn, Reset, ProductEdit, ProductList, 
+  ProductDetail, CartList, OrderConfirm, OrderHistory, 
+  LikeList, UserMyPage, CheckoutWrapper
+} from './templates'
 import Auth from './Auth'
 
 // ルーティングの設定
@@ -22,6 +26,8 @@ const Router = () => {
 
         <Route exact path={"/order/confirm"} component={OrderConfirm} />
         <Route exact path={"/order/history"} component={OrderHistory} />
+        <Route exact path={"/user/mypage"} component={UserMyPage} />
+        <Route exact path={"/user/payment/edit"} component={CheckoutWrapper} />
       </Auth>
     </Switch>
 
