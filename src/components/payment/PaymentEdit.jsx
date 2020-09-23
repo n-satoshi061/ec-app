@@ -1,11 +1,18 @@
 import React, {useCallback} from 'react'
-import {CardElement} from '@stripe/react-stripe-js';
+import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import { PrimaryButton } from '../UIkit';
 import {useDispatch} from 'react-redux'
 import {push} from 'connected-react-router'
+import {registerCard} from '../../reducks/payments/operations'
 
 const PaymentEdit = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const register = useCallback(() => {
+    dispatch(registerCard(stripe, elements))
+  }, [stripe, elements]);
 
   const goBackToMyPage = useCallback(() => {
     dispatch(push('/user/mypage'))
@@ -33,6 +40,10 @@ const PaymentEdit = () => {
       />
       <div className="module-spacer--medium" />
       <div className="center">
+      <PrimaryButton 
+          label={"カード情報を保存する"}
+          onClick={register}
+        />
         <PrimaryButton 
           label={"マイページに戻る"}
           onClick={goBackToMyPage}
