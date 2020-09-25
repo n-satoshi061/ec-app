@@ -16,6 +16,14 @@
         "function": "stripeCustomer"
       },
       {
+        "source": "/v1/paymentMethod",
+        "function": "retrievePaymentMethod"
+      },
+      {
+        "source": "/v1/updatePaymentMethod",
+        "function": "updatePaymentMethod"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

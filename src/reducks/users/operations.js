@@ -66,8 +66,9 @@ export const listenAuthState = () => {
         db.collection('users').doc(uid).get()
           .then(snapshot => {
             const data = snapshot.data()
-
             dispatch(signInAction( {
+              customer_id: (data.customer_id) ? data.customer_id: "",
+              payment_method_id: (data.payment_method_id) ? data.payment_method_id: "",
               isSignedIn: true,
               email: data.email,
               role: data.role,
@@ -103,6 +104,8 @@ export const signIn = (email, password) => {
               const data = snapshot.data()
               // ユーザー情報をsignInActionに渡すことで、stateの更新を行う。
               dispatch(signInAction( {
+                customer_id: (data.customer_id) ? data.customer_id: "",
+                payment_method_id: (data.payment_method_id) ? data.payment_method_id: "",
                 isSignedIn: true,
                 email: data.email,
                 role: data.role,
